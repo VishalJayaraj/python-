@@ -1,0 +1,18 @@
+class Solution(object):
+    def firstMissingPositive(self, nums):
+        i = 1
+        # initial approach -> didn't work on 1:100,000
+        #
+        # while True:
+        #     if i in nums:
+        #         nums = nums[i:]
+        #         i += 1
+        #     else:
+        #         return i
+        nums = set(nums)
+        while True:
+            try:
+                nums.remove(i)
+                i += 1
+            except KeyError:
+                return i
