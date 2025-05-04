@@ -1,0 +1,7 @@
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        return max((i+1)*(c>=i+1) for i, c in enumerate(sorted(citations, reverse=True)))
