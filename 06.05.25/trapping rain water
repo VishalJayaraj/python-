@@ -1,0 +1,41 @@
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        water = 0
+        ptr = 0
+        qtr = 1
+        wall = 0       
+        while qtr < len(height) :
+            if height[qtr] >= height[ptr] :
+                water += abs(height[ptr]*(qtr-ptr-1)-wall)
+                ptr = qtr
+                qtr += 1
+                wall = 0
+                continue
+            elif height[qtr] < height[ptr] :
+                wall += height[qtr]
+                qtr += 1
+                continue
+        if ptr == len(height)-1 :
+            return water
+        idx = int(ptr)
+        ptr = len(height)-1
+        qtr = len(height)-2
+        wall = 0
+        while qtr >= 0 :
+            if qtr == idx-1 :
+                break
+            if height[qtr] >= height[ptr] :
+                water += abs(height[ptr]*(ptr-qtr-1)-wall)
+                ptr = qtr
+                qtr -= 1
+                wall = 0
+                continue
+            elif height[qtr] < height[ptr] :
+                wall += height[qtr]
+                qtr -= 1
+                continue
+        return water
