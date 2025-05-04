@@ -1,0 +1,28 @@
+class Solution(object):
+    def change(self, amount, coins):
+        memo={}
+        def helper(idx,total):
+
+            if idx>=len(coins) or total>amount:
+
+                return 0
+
+            if total==amount:
+
+                return 1
+
+            if (idx,total) in memo:
+
+                return memo[(idx,total)]
+
+            else:
+                include=helper(idx,total+coins[idx])
+
+                exclude=helper(idx+1,total)
+
+                memo[(idx,total)] =include+exclude
+
+                return memo[(idx,total)]
+
+        return helper(0,0)
+        
